@@ -1,0 +1,145 @@
+
+<div class="row mt-2">
+  <div class="col-3">
+    <div class="form-group">
+        <label for="employee">Employee Name</label>
+        <select name="employee" id="employee" [(ngModel)]="empSelected"  (change)="bindEmployeeTaskListOnddlChange(empSelected)" class="form-control">
+          <option [ngValue]="null">Please select Employee</option>
+          <option *ngFor="let item of employees" [value]="item.id">
+            {{ item.name }}
+          </option>
+        </select>
+    </div>
+    
+  </div>
+  Selected Value is {{empSelected}}
+</div>
+
+<div class="row mt-2">
+    <div class="col-12">
+      <input type="button" class="btn btn-primary btn-sm" value="Add Task" (click)="onAddTaskClick()">
+    </div>
+  </div>
+
+<div class="row mt-2" *ngIf="isViewable">
+  <div class="col-12">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Task Name</th>
+          <th>Sunday</th>
+          <th>Monday</th>
+          <th>Tuesday</th>
+          <th>Wednesday</th>
+          <th>Thursday</th>
+          <th>Friday</th>
+          <th>Saturday</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="!taskSchedule || taskSchedule.length === 0">
+          <td colspan="8" class="text-center">No Task Record Founds</td>
+        </tr>
+        <tr *ngFor="let item of taskSchedule">
+          <td>{{item.taskName}}</td>
+          <td>{{item.sunday}}</td>
+          <td>{{item.monday}}</td>
+          <td>{{item.tuesday}}</td>
+          <td>{{item.wednesday}}</td>
+          <td>{{item.thursday}}</td>
+          <td>{{item.friday}}</td>
+          <td>{{item.saturday}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="row" *ngIf="!isViewable">
+  <div class="col-md-12">
+    <form #templateForm="ngForm" (ngSubmit)="onSubmit(templateForm.value)">
+      <div class="field">
+          <input type="hidden" name="EmployeeId" #EmployeeId="ngModel" [(ngModel)]="empSelected" class="form-control" >
+          <!-- <input type="hidden" name="TaskId" #TaskId="taskSelectedValue" [(ngModel)]="taskSelectedValue" class="form-control" > -->
+          
+      </div>
+      <div class="field">
+        <label for="TaskName">Task Selection</label>
+        <select id="TaskName" name="TaskName" [(ngModel)]="taskName" (change)="selectChangeHandler($event)"  class="form-control">
+          <option [ngValue]="null">Please select Task</option>
+          <option *ngFor="let item of employeeTaskList" [value]="item.name">
+            {{item.name}}
+          </option>
+        </select>
+        
+        Selected Value is {{taskSelectedValue}}
+        
+      </div>
+      
+      <div class="field">
+        <label class="label" for="sunday">Sunday</label>
+        <div class="control">
+          <input class="form-control" type="number" [(ngModel)]="formUser.sunday" name="sunday" #email="ngModel" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label" for="monday">Monday</label>
+        <div class="control">
+          <input class="form-control" type="number" [(ngModel)]="formUser.monday" name="monday" #monday="ngModel"
+            required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label" for="tuesday">Tuesday</label>
+        <div class="control">
+          <input class="form-control" type="number" [(ngModel)]="formUser.tuesday" name="tuesday" #name="ngModel"
+            required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label" for="wednesday">Wednesday</label>
+        <div class="control">
+          <input class="form-control" type="number" [(ngModel)]="formUser.wednesday" name="wednesday" #name="ngModel"
+            required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label" for="thursday">Thursday</label>
+        <div class="control">
+          <input class="form-control" type="number" [(ngModel)]="formUser.thursday" name="thursday" #name="ngModel"
+            required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label" for="friday">Friday</label>
+        <div class="control">
+          <input class="form-control" type="number" [(ngModel)]="formUser.friday" name="friday" #name="ngModel" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label" for="saturday">Saturday</label>
+        <div class="control">
+          <input class="form-control" type="number" [(ngModel)]="formUser.saturday" name="saturday" #name="ngModel"
+            required>
+        </div>
+      </div>
+
+      <button [disabled]="!templateForm.form.valid" type="submit" class="btn btn-primary btn-sm mt-3 is-primary">Save
+        Task</button>
+      <!-- <input type="button" value="Add Task" class="btn btn-primary btn-sm mb-2 float-right" (click)="onSubmit()"> -->
+    </form>
+    {{templateForm.value | json}}
+  </div>
+</div>
+
+<div class="row mt-2">
+  <div class="col-12">
+    <input type="button" class="btn btn-primary btn-sm" value="Back to Employee Page" (click)="onBackButtonClick()">
+  </div>
+</div>
